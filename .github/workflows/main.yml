@@ -1,0 +1,23 @@
+name: 'Commit Message Check'
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - "*"
+
+jobs:
+  check-commit-message:
+    name: Check Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Commit Type
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: '(\[)[A-Z][A-Za-z0-9]*(\])\s[A-Z].*'
+          flags: 'gm'
+          error: 'Commits should contain a tag and a message, for eg: "[Core] This is a commit message".'
